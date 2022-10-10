@@ -15,7 +15,7 @@ pgd_list = []
 for i in r:
     pgd_list.append(str(data_np[i][column]))
 
-client = commands.Bot(command_prefix='!')
+client = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
 
 
