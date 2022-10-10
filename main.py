@@ -4,11 +4,10 @@ import random
 import numpy as np
 import discord
 import os
-Location = 'C:\kkutu'
 ao = 'kkutu_integrated.xlsx'
 column = 0
 
-data_pd = pd.read_excel('{}/{}'.format(Location, ao), header=None, index_col=None, names=None)
+data_pd = pd.read_excel('{}'.format(ao), header=None, index_col=None, names=None)
 data_np = pd.DataFrame.to_numpy(data_pd)
 
 r = list(range(0, 290888))
