@@ -109,4 +109,4 @@ async def 앞말검색(ctx):
     await ctx.send(result[0:5])
 
 
-client.run(os.environ.get('token'))
+client.run(os.environ['token'])
