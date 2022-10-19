@@ -51,6 +51,7 @@ async def 업데이트(ctx):
     sheet = doc.worksheet("시트1")
     column_data = sheet.col_values(1)
     update = list(set(column_data))
+    await ctx.send('업데이트 완료')
 
 
 @client.command()
