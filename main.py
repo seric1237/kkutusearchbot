@@ -4,19 +4,26 @@ import random
 import numpy as np
 import discord
 import os
-ao = 'kkutu_integrated.xlsx'
-column = 0
+from oauth2client.service_account import ServiceAccountCredentials
+import gspread
 
-data_pd = pd.read_excel('{}'.format(ao), header=None, index_col=None, names=None)
-data_np = pd.DataFrame.to_numpy(data_pd)
+scope = [
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/drive",
+]
 
-r = list(range(0, 290888))
-pgd_list = []
-for i in r:
-    pgd_list.append(str(data_np[i][column]))
+json_key_path = "C:\kkutu\key.json" # JSON Key File Path
+credential = ServiceAccountCredentials.from_json_keyfile_name(json_key_path, scope)
+gc = gspread.authorize(credential)
+
+spreadsheet_key = "1MmD-THB63KkhYsSxUnu7iWuL8K0wMdfibzIAM3OitWk"
+doc = gc.open_by_key(spreadsheet_key)
+sheet = doc.worksheet("시트1")
+temp = sheet.get_all_values()
+update = list(set(temp))
+
 
 client = commands.Bot(command_prefix='!', intents=discord.Intents.all())
-
 
 
 
@@ -26,6 +33,24 @@ async def on_ready():
     print('Bot: {}'.format(client.user))
     print('Bot name: {}'.format(client.user.name))
     print('Bot ID: {}'.format(client.user.id))
+    
+
+@client.command()
+async def 업데이트(ctx):
+    scope = [
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/drive",
+    ]
+
+    json_key_path = "C:\kkutu\key.json" # JSON Key File Path
+    credential = ServiceAccountCredentials.from_json_keyfile_name(json_key_path, scope)
+    gc = gspread.authorize(credential)
+    
+    spreadsheet_key = "1MmD-THB63KkhYsSxUnu7iWuL8K0wMdfibzIAM3OitWk"
+    doc = gc.open_by_key(spreadsheet_key)
+    sheet = doc.worksheet("시트1")
+    temp = sheet.get_all_values()
+    update = list(set(temp))
 
 
 @client.command()
@@ -35,7 +60,7 @@ async def 미션검색(ctx):
     mission_len = []
     mission_search = []
     mss = []
-    for word in pgd_list:
+    for word in update:
         c = word.count(smw)
         if c > 0 and word.find(sfw) == 0:
             mission_len.append(c)
@@ -47,7 +72,7 @@ async def 미션검색(ctx):
     a = mission_result[::-1]
     result = a.tolist()
     n = result[0].count(smw)
-    for word in pgd_list:
+    for word in update:
         c = word.count(smw)
         if c == n and word.find(sfw) == 0:
             mss.append(word)
@@ -56,13 +81,13 @@ async def 미션검색(ctx):
 
 
 @client.command()
-async def 미션갯수(ctx):
+async def 미션개수(ctx):
     sfw = ctx.message.content[6:7]
     smw = ctx.message.content[8:9]
     num = ctx.message.content[10:11]
     mission_search = []
 
-    for word in pgd_list:
+    for word in update:
         c = str(word.count(smw))
         if c == num and word.find(sfw) == 0:
             mission_search.append(word)
@@ -75,7 +100,7 @@ async def 빌런검색(ctx):
     search_result = []
     sfw = ctx.message.content[6:7]
     sew = ctx.message.content[8:9]
-    for i in pgd_list:
+    for i in update:
         if i.find(sfw) == 0 and i.find(sew, len(i) - 1) == len(i) - 1:
             search_result.append(i)
 
@@ -87,7 +112,7 @@ async def 빌런검색(ctx):
 async def 끝말검색(ctx):
     search_result = []
     sew = ctx.message.content[6:7]
-    for i in pgd_list:
+    for i in update:
         if i.find(sew) == len(i) - 1:
             search_result.append(i)
 
@@ -99,7 +124,7 @@ async def 끝말검색(ctx):
 async def 앞말검색(ctx):
     search_result = []
     sfw = ctx.message.content[6:7]
-    for i in pgd_list:
+    for i in update:
         if i.find(sfw) == 0:
             search_result.append(i)
 
