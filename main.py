@@ -7,21 +7,6 @@ import os
 from oauth2client.service_account import ServiceAccountCredentials
 import gspread
 
-scope = [
-    "https://spreadsheets.google.com/feeds",
-    "https://www.googleapis.com/auth/drive",
-]
-
-json_key_path = "key.json" # JSON Key File Path
-credential = ServiceAccountCredentials.from_json_keyfile_name(json_key_path, scope)
-gc = gspread.authorize(credential)
-
-spreadsheet_key = "1MmD-THB63KkhYsSxUnu7iWuL8K0wMdfibzIAM3OitWk"
-doc = gc.open_by_key(spreadsheet_key)
-sheet = doc.worksheet("시트1")
-column_data = sheet.col_values(1)
-update = list(set(column_data))
-
 
 client = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
