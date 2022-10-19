@@ -2,3 +2,5 @@ discord.py
 pandas
 numpy
 openpyxl
+oauth2client
+gspread
