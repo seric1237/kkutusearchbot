@@ -19,8 +19,8 @@ gc = gspread.authorize(credential)
 spreadsheet_key = "1MmD-THB63KkhYsSxUnu7iWuL8K0wMdfibzIAM3OitWk"
 doc = gc.open_by_key(spreadsheet_key)
 sheet = doc.worksheet("시트1")
-temp = sheet.get_all_values()
-update = list(set(temp))
+column_data = sheet.col_values(1)
+update = list(set(column_data))
 
 
 client = commands.Bot(command_prefix='!', intents=discord.Intents.all())
@@ -49,8 +49,8 @@ async def 업데이트(ctx):
     spreadsheet_key = "1MmD-THB63KkhYsSxUnu7iWuL8K0wMdfibzIAM3OitWk"
     doc = gc.open_by_key(spreadsheet_key)
     sheet = doc.worksheet("시트1")
-    temp = sheet.get_all_values()
-    update = list(set(temp))
+    column_data = sheet.col_values(1)
+    update = list(set(column_data))
 
 
 @client.command()
