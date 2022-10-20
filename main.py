@@ -82,7 +82,40 @@ async def 미션개수(ctx):
     mission_search.sort(key=len)
     result = mission_search[::-1]
     await ctx.send(result[0:5])
+    
+  
+@client.command()
+async def 단어추가(ctx):
+    adw = ctx.message.content[6:]
+    olw = []
+    for i in update:
+        if i == adw:
+            olw.append(adw)
+            break
+    if len(olw) == 0:
+        update.append(adw)
+        sheet.append_row([adw])
+        await ctx.send('단어 추가가 완료되었습니다')
+    elif len(olw) == 1:
+        await ctx.send('이미 있는 단어입니다')
 
+
+@client.command()
+async def 단어삭제(ctx):
+    dlw = ctx.message.content[6:]
+    srw = []
+    for i in update:
+        if i == dlw:
+            srw.append(dlw)
+            break
+    if len(srw) == 0:
+        await ctx.send('없는 단어입니다')
+    elif len(srw) == 1:
+        update.remove(dlw)
+        dln = sheet.find(dlw)
+        sheet.delete_rows(dln.row)
+        await ctx.send('단어 삭제가 완료되었습니다')
+    
 @client.command()
 async def 빌런검색(ctx):
     search_result = []
