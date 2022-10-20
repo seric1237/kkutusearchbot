@@ -32,7 +32,7 @@ async def 업데이트(ctx):
     credential = ServiceAccountCredentials.from_json_keyfile_name(json_key_path, scope)
     gc = gspread.authorize(credential)
     
-    spreadsheet_key = "1MmD-THB63KkhYsSxUnu7iWuL8K0wMdfibzIAM3OitWk"
+    spreadsheet_key = os.environ['key']
     doc = gc.open_by_key(spreadsheet_key)
     sheet = doc.worksheet("시트1")
     column_data = sheet.col_values(1)
