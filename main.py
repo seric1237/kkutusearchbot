@@ -34,6 +34,7 @@ async def 업데이트(ctx):
     
     spreadsheet_key = os.environ['key']
     doc = gc.open_by_key(spreadsheet_key)
+    global sheet
     sheet = doc.worksheet("시트1")
     column_data = sheet.col_values(1)
     global update
