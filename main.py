@@ -135,7 +135,7 @@ async def 끝말검색(ctx):
     search_result = []
     sew = ctx.message.content[6:7]
     for i in update:
-        if i.find(sew) == len(i) - 1:
+        if i.rfind(sew) == len(i) - 1:
             search_result.append(i)
 
     search_result.sort(key=len)
