@@ -159,7 +159,7 @@ async def 단어검색(ctx):
     search_result = []
     serw = ctx.message.content[6:]
     for i in update:
-        if i.find(serw) > 0:
+        if i.find(serw) > -1:
             search_result.append(i)
             
     search_result.sort(key=len)
