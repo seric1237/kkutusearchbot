@@ -148,10 +148,9 @@ async def 끝말검색(ctx):
     search_result = []
     sew = ctx.message.content[6:7]
     wnm = ctx.message.content[8:9]
-    wn = int(wnm)
     if len(wnm) > 0:
         for i in update:
-            if i.find(sew) == len(i) - 1 and len(i) == wn:
+            if i.find(sew) == len(i) - 1 and len(i) == int(wnm):
                 search_result.append(i)
     else:
         for i in update:
@@ -166,10 +165,9 @@ async def 앞말검색(ctx):
     search_result = []
     sfw = ctx.message.content[6:7]
     wnm = ctx.message.content[8:9]
-    wn = int(wnm)
     if len(wnm)>0:
         for i in update:
-            if i.find(sfw) == 0 and len(i) == wn:
+            if i.find(sfw) == 0 and len(i) == int(wnm):
                 search_result.append(i)
     else:
         for i in update:
