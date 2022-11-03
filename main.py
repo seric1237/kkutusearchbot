@@ -156,9 +156,8 @@ async def 끝말검색(ctx):
         for i in update:
             if i.find(sew) == len(i) - 1:
                 search_result.append(i)
-        search_result.sort(key=len)
-        result = search_result[::-1]
-    await ctx.send(result[0:5])
+        search_result.sort(key=len, reverse=True)
+    await ctx.send(search_result[0:5])
 
 @client.command()
 async def 앞말검색(ctx):
@@ -171,11 +170,10 @@ async def 앞말검색(ctx):
                 search_result.append(i)
     else:
         for i in update:
-            if i.find(sew) == len(i) - 1:
+            if i.find(sfw) == len(i) - 1:
                 search_result.append(i)
-        search_result.sort(key=len)
-        result = search_result[::-1]
-    await ctx.send(result[0:5])
+        search_result.sort(key=len, reverse=True)
+    await ctx.send(search_result[0:5])
    
 @client.command()
 async def 단어검색(ctx):
