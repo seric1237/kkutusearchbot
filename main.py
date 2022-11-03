@@ -170,7 +170,7 @@ async def 앞말검색(ctx):
                 search_result.append(i)
     else:
         for i in update:
-            if i.find(sfw) == len(i) - 1:
+            if i.find(sfw) == 0:
                 search_result.append(i)
         search_result.sort(key=len, reverse=True)
     await ctx.send(search_result[0:5])
