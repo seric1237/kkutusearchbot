@@ -7,6 +7,19 @@ import os
 from oauth2client.service_account import ServiceAccountCredentials
 import gspread
 
+scope = [
+"https://spreadsheets.google.com/feeds",
+"https://www.googleapis.com/auth/drive",
+]
+
+json_key_path = "key.json" # JSON Key File Path
+credential = ServiceAccountCredentials.from_json_keyfile_name(json_key_path, scope)
+gc = gspread.authorize(credential)
+spreadsheet_key = os.environ['key']
+doc = gc.open_by_key(spreadsheet_key)
+sheet = doc.worksheet("시트1")
+column_data = sheet.col_values(1)
+update = list(set(column_data))
 
 
 client = commands.Bot(command_prefix='!', intents=discord.Intents.all())
@@ -129,31 +142,43 @@ async def 빌런검색(ctx):
     search_result.sort(key=len)
     result = search_result[::-1]
     await ctx.send(result[0:5])
-
+    
 @client.command()
 async def 끝말검색(ctx):
     search_result = []
     sew = ctx.message.content[6:7]
-    for i in update:
-        if i.rfind(sew) == len(i) - 1:
-            search_result.append(i)
-
-    search_result.sort(key=len)
-    result = search_result[::-1]
+    wnm = ctx.message.content[8:9]
+    wn = int(wnm)
+    if len(wnm) > 0:
+        for i in update:
+            if i.find(sew) == len(i) - 1 and len(i) == wn:
+                search_result.append(i)
+    else:
+        for i in update:
+            if i.find(sew) == len(i) - 1:
+                search_result.append(i)
+        search_result.sort(key=len)
+        result = search_result[::-1]
     await ctx.send(result[0:5])
 
 @client.command()
 async def 앞말검색(ctx):
     search_result = []
     sfw = ctx.message.content[6:7]
-    for i in update:
-        if i.find(sfw) == 0:
-            search_result.append(i)
-
-    search_result.sort(key=len)
-    result = search_result[::-1]
+    wnm = ctx.message.content[8:9]
+    wn = int(wnm)
+    if len(wnm)>0:
+        for i in update:
+            if i.find(sfw) == 0 and len(i) == wn:
+                search_result.append(i)
+    else:
+        for i in update:
+            if i.find(sew) == len(i) - 1:
+                search_result.append(i)
+        search_result.sort(key=len)
+        result = search_result[::-1]
     await ctx.send(result[0:5])
-
+   
 @client.command()
 async def 단어검색(ctx):
     search_result = []
