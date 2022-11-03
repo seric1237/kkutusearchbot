@@ -150,11 +150,11 @@ async def 끝말검색(ctx):
     wnm = ctx.message.content[8:9]
     if len(wnm) > 0:
         for i in update:
-            if i.find(sew) == len(i) - 1 and len(i) == int(wnm):
+            if i.rfind(sew) == len(i) - 1 and len(i) == int(wnm):
                 search_result.append(i)
     else:
         for i in update:
-            if i.find(sew) == len(i) - 1:
+            if i.rfind(sew) == len(i) - 1:
                 search_result.append(i)
         search_result.sort(key=len, reverse=True)
     await ctx.send(search_result[0:5])
