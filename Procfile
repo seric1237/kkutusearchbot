@@ -1,1 +1,1 @@
-gunicorn kkutusearchbot.wsgi
+worker: python main.py
