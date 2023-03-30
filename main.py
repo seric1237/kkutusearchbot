@@ -6,7 +6,6 @@ import discord
 import os
 from oauth2client.service_account import ServiceAccountCredentials
 import gspread
-import gunicorn
 
 
 scope = [
